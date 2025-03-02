@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     //navigations
     alias(libs.plugins.jetbrainsKotlinSerialization)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
