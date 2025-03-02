@@ -8,6 +8,9 @@ import androidx.navigation.toRoute
 import com.dartbyte.navigationapp.DetailScreen
 import com.dartbyte.navigationapp.HomeScreen
 import com.dartbyte.navigationapp.LoginScreen
+import com.dartbyte.navigationapp.SettingScreen
+import com.dartbyte.navigationapp.core.navigation.type.createNavType
+import kotlin.reflect.typeOf
 
 @Composable
 fun NavigationComponent(){
@@ -23,7 +26,14 @@ fun NavigationComponent(){
 
         composable<Detail>{ backStackEntry ->
             val detail:Detail = backStackEntry.toRoute()
-            DetailScreen(detail.name){ navController.navigateUp() }
+            DetailScreen(name = detail.name,
+                navigateBack = { navController.navigateUp() },
+                navigateToSettings = {navController.navigate(Settings(it))})
+        }
+
+        composable<Settings>(typeMap = mapOf(typeOf<SettingInfo>() to createNavType<SettingInfo>())) { backStackEntry ->
+            val settings:Settings = backStackEntry.toRoute()
+            SettingScreen(settings.info)
         }
     }
 
